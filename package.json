@@ -1,0 +1,38 @@
+{
+  "name": "resolve-pay-next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development ENV_FILE=.env.development next dev",
+    "build": "cross-env NODE_ENV=development ENV_FILE=.env.development next build",
+    "start": "cross-env NODE_ENV=development ENV_FILE=.env.development next start",
+    "dev:qa": "cross-env NODE_ENV=development ENV_FILE=.env.qa next dev",
+    "build:qa": "cross-env NODE_ENV=qa ENV_FILE=.env.qa next build",
+    "start:qa": "cross-env NODE_ENV=qa ENV_FILE=.env.qa next start",
+    "dev:staging": "cross-env NODE_ENV=development ENV_FILE=.env.staging next dev",
+    "build:staging": "cross-env NODE_ENV=staging ENV_FILE=.env.staging next build",
+    "start:staging": "cross-env NODE_ENV=staging ENV_FILE=.env.staging next start",
+    "dev:production": "cross-env NODE_ENV=development ENV_FILE=.env.production next dev",
+    "build:production": "cross-env NODE_ENV=production ENV_FILE=.env.production next build",
+    "start:production": "cross-env NODE_ENV=production ENV_FILE=.env.production next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "next": "14.2.5",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.4",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "cross-env": "^7.0.3",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

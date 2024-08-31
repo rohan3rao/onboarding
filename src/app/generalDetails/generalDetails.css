@@ -1,0 +1,124 @@
+.custom-card {
+    border-radius: 40px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 30px 50px 10px;
+}
+
+.choose{
+    display: none;
+}
+
+.form-control{
+    font-size: 14px !important;
+    color: black !important;
+}
+
+.form-control:focus{
+    font-size: 14px;
+    border-color: none !important;
+    box-shadow: none !important;
+    color: black !important;
+}
+
+.drop {
+    font-size: 14px !important;
+    cursor: pointer;
+}
+
+option {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  
+  .custom-select-wrapper::after {
+    content: '▼'; /* Dropdown arrow */
+    font-size: 0.6rem;
+    color: #495057;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .general-info-btn {
+    background: #08705C;
+    color: #E6E6E6;
+    padding: 12px;
+    width: 30%;
+    border-radius: 8px;
+    border: none;
+}
+
+.input-container-taxable {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .input-container-taxable input {
+    padding-left: 80px; /* Adjust this value based on label width */
+    box-sizing: border-box;
+  }
+  
+  .input-container-taxable .label {
+    position: absolute;
+    left: 10px; /* Space from the left edge of the input */
+    top: 20%;
+    color: grey;
+    pointer-events: none;
+    font-size: 14px;
+  }
+  
+  .input-container-taxable input:focus + .label,
+  .input-container-taxable input:not(:placeholder-shown) + .label {
+    color: grey;
+    font-size: 14px;
+  }
+
+  .input-container-non-taxable {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .input-container-non-taxable input {
+    padding-left: 115px; /* Adjust this value based on label width */
+    box-sizing: border-box;
+  }
+  
+  .input-container-non-taxable .label {
+    position: absolute;
+    left: 10px; /* Space from the left edge of the input */
+    top: 20%;
+    color: grey;
+    pointer-events: none;
+    font-size: 14px;
+  }
+  
+  .input-container-non-taxable input:focus + .label,
+  .input-container-non-taxable input:not(:placeholder-shown) + .label {
+    color: grey;
+    font-size: 14px;
+  }
+
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.mandatory{
+  color: red;
+}

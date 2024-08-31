@@ -1,0 +1,277 @@
+.right-align {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end !important;
+}
+
+/* card */
+
+.custom-card {
+  border-radius: 40px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 30px 50px;
+}
+
+.plan-card {
+  padding: 20px;
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.price {
+  /* border-radius: 20px; */
+  /* background: #ffffff; */
+  padding-right: 16px;
+  /* margin-top: 20px; */
+  padding-left: 0 !important;
+}
+
+.small-switch-card {
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+  width: 270px;
+}
+
+.payment-card {
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Pills */
+
+.square-pill {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid #b0b0b0;
+  background: #ffffff;
+  margin-right: 16px;
+  margin-bottom: 12px;
+}
+
+.discount-pill {
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid #e79251;
+  color: #e79251;
+  background: #fffbf8;
+  margin-left: 30px;
+  /* margin-right: 16px; */
+  /* margin-bottom: 12px; */
+}
+
+.optional-pil {
+  color: #333333;
+  padding: 0.5px;
+  border-radius: 8px;
+  border: 1px solid #e79251;
+  margin-top: 5px;
+}
+
+.pill-feature {
+  margin-bottom: -10px;
+}
+
+.discount-pills {
+  border: 1px solid #eeaa00;
+  background: #fffbf8 !important;
+  color: #eeaa00;
+  /* margin-right: 16px; */
+  /* margin-bottom: 12px; */
+}
+
+.discount-pills-one {
+  border: 1px solid #a823ef;
+  background: #fffbf8 !important;
+  color: #a823ef;
+
+  /* margin-right: 16px; */
+  /* margin-bottom: 12px; */
+}
+/* Input */
+
+.btn-primary {
+  border-radius: 4px;
+  background: #08705c;
+  padding: 8px 16px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+/* Dropdown */
+
+.border-line {
+  width: 590px; /* Adjust the width to make the underline shorter */
+  height: 2px; /* Adjust the height for the thickness of the underline */
+  background-color: #9096a2; /* Set the color of the underline */
+  margin: 0 auto; /* Center the underline if needed */
+  margin-top: 10px;
+  margin-right: 15px; /* Adjust the space above the underline */
+}
+
+/* Tabs */
+
+.nav-pills {
+  padding: 12px;
+  padding-left: 12px !important;
+  border-radius: 40px;
+  background: #f5f9ff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-pills .nav-link {
+  border-radius: 30px;
+}
+
+.nav-link {
+  padding: 8px 40px;
+  color: #9096a2;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #ffffff;
+  background: #08705c !important;
+  border-radius: 30px;
+}
+
+.square-tab-container {
+  border-radius: 4px;
+  border: 1px solid #08705c;
+  display: flex;
+  margin: 20px 0;
+}
+
+.square-tab {
+  padding: 8px 16px;
+}
+
+.selected-square-tab {
+  padding: 8px 16px;
+  color: #ffffff;
+  background: #08705c;
+}
+
+/* Square Radio Btn */
+
+.form-check-input[type="radio"]:checked + .form-check-label::before {
+  border-radius: 0;
+}
+.form-check-input[type="radio"] + .form-check-label::before {
+  border-radius: 0;
+}
+
+/* General Css */
+
+.bi-check-lg {
+  font-size: 30px;
+}
+
+.bg {
+  /* background-image: url("./img/bg.svg"); */
+  background-color: #2e75c7;
+  height: 100vh;
+}
+
+.card-image {
+  height: 80px;
+  width: 80px;
+}
+
+.out-right {
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  /* height: 537 px; */
+  margin-top: 20px !important;
+}
+
+.list {
+  margin-left: 10px;
+}
+
+/************************/
+
+.main-card-section {
+  padding: 25px;
+  border-radius: 12px;
+  background: #ffffff;
+  height: calc(80vh - 90px);
+  overflow-y: auto;
+}
+
+.fea-card {
+  padding: 10px;
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  margin-top: 20px;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
+}
+.card-container {
+  /* display: grid; */
+  grid-template-columns: 1fr 1fr;
+  column-gap: 25px;
+  overflow-y: auto;
+  height: 460px;
+  padding-right: 16px;
+  height: calc(100vh - 130px);
+}
+
+.right-section {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: calc(90vh - 120px) auto;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ebebeb;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #145e83;
+  border-radius: 8px;
+}
+
+.nav-pill-pills {
+  padding: 1px;
+}
+
+.amount-period {
+  margin-right: 30px;
+}
+
+.hy-amount {
+  margin-right: 5px;
+}
+
+.ay-amount {
+  margin-right: 15px;
+}
+
+.q-amount {
+  margin-right: 13px;
+}
+
+.custom-message {
+  border-radius: 20px;
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+}
