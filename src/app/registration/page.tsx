@@ -65,13 +65,13 @@ export default function Registration() {
     <div className="bg p-3 overflow-y-auto">
       {stepper.generalDetailsStepperStatus === "active" && (
         <p className="text-white text-center font-pop-18 fw-600">
-          "Streamline Your Payroll: Register with Ease!"
+          Streamline Your Payroll: Register with Ease!
         </p>
       )}
       {stepper.featuresStepperStatus === "active" && (
         <p className="text-white text-center font-pop-18 fw-600">
-          "Unlock Efficiency: Discover the Power of Advanced Resolvepay
-          Features!"
+          Unlock Efficiency: Discover the Power of Advanced Resolvepay
+          Features!
         </p>
       )}
       <div className="stepper-wrapper mb-3">
@@ -149,7 +149,7 @@ export default function Registration() {
           <GeneralDetails onNext={handleNextStep} />
         )}
         {stepper.featuresStepperStatus === "active" && (
-          <Features onNext={handleNextStep} />
+          <Features onNext={handleNextStep}  />
         )}
       </div>
     </div>

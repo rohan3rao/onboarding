@@ -84,7 +84,15 @@ export default function PaymentSuccess() {
       const generalDetails = storedDetails ? JSON.parse(storedDetails) : null;
       const formData = localStorage.getItem("formData");
       const data = formData ? JSON.parse(formData) : {};
-      const linkIdInfo = JSON.parse(localStorage.getItem("Link Id")) || "";
+      const getLinkIdInfo = (): any => {
+        // Retrieve the item from localStorage
+        const linkIdJson = localStorage.getItem("Link Id");
+      
+        // Safely parse the JSON if it's not null
+        return linkIdJson ? JSON.parse(linkIdJson) : "";
+      };
+      
+      const linkIdInfo = getLinkIdInfo();
       const sanitizedLinkId = linkIdInfo.replace(/^"|"$/g, "");
 
       const paymentDetails = localStorage.getItem("Payment Status");
@@ -218,7 +226,7 @@ export default function PaymentSuccess() {
     };
 
     fetchDetails();
-  }, []);
+  }, );
   // Empty dependency array ensures this effect runs only once after the initial render
   // Empty dependency array ensures this runs only once when the component mounts
 
@@ -239,7 +247,7 @@ export default function PaymentSuccess() {
               <i className="bi bi-check-circle-fill"></i>
             </div>
             <div className="modal-note font-pop-12">
-              Note :The login credentials has sent to an email "{companyEmail}"
+              Note :The login credentials has sent to an email {companyEmail}
             </div>
           </div>
           <div>

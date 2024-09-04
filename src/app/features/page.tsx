@@ -12,7 +12,6 @@ import yellowWalletImg from "../../../public/yellow wallet with money (1).svg";
 import complianceImg from "../../../public/Compliance.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col } from "react-bootstrap";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Registration from "../registration/page";
 import {
@@ -41,10 +40,27 @@ type OrganisationData = {
   panCardNo: string;
   phoneNumber: string;
   taxableEmployees: string;
+  taxableCount?: number;
+  nontaxablecount?: number;
+  keyholder_name?: string;
 };
+
+
+
+interface FeatureDetailsProps {
+  onNext: () => void;
+  orgId: string;  // or whatever type orgId should be
+}
+
+interface CompanyInfo {
+  taxableCount: string;
+  nontaxablecount: string;
+  keyholder_name?: string; 
+  // Add other properties as needed
+}
+
 const Features: React.FC<FeatureDetailsProps> = ({
   onNext,
-  keyholderName,
   orgId,
 }) => {
   const router = useRouter();
@@ -69,28 +85,27 @@ const Features: React.FC<FeatureDetailsProps> = ({
   const [isCompliancePlanActive, setIsCompliancePlanActive] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleTabClick = (tabName) => {
+  const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
   };
-  const getFontWeight = (tabName) => {
+  const getFontWeight = (tabName: string): "bold" | "normal" => {
     return activeTab === tabName ? "bold" : "normal";
   };
-
-  const handleSwitchChange = (setter) => () => {
-    setter((prevState) => !prevState);
-    setter(event.target.checked);
-    // setIsCompliancePlanActive(!isCompliancePlanActive);
+  const handleSwitchChange = (setter: React.Dispatch<React.SetStateAction<boolean>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target && event.target.checked !== null) {
+      setter(event.target.checked);
+    }
   };
-  const handleSwitchChangeComp = (setter) => () => {
-    setter((prevState) => !prevState);
-    setIsCompliancePlanActive(!isCompliancePlanActive);
+  
+  const handleSwitchChangeComp = (setter: React.Dispatch<React.SetStateAction<boolean>>) => () => {
+    setter((prevState: boolean) => !prevState);
+    setIsCompliancePlanActive((prev: boolean) => !prev);
   };
 
   async function getMonthlyAmount() {
     try {
       // Retrieve companyInfo from localStorage
-      const companyInfo = JSON.parse(localStorage.getItem("CompanyInfo"));
-
+      const companyInfo = JSON.parse(localStorage.getItem("CompanyInfo") as string);
       if (companyInfo) {
         const taxableCount = parseInt(companyInfo.taxableCount, 10);
         const nontaxablecount = parseInt(companyInfo.nontaxablecount, 10);
@@ -152,7 +167,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
 
   formatMonthlyAmount();
 
-  function addGst(amount, gstRate) {
+  function addGst(amount: number, gstRate: number): number {
     return amount * gstRate;
   }
 
@@ -161,7 +176,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
     try {
       const monthlyAmount = await formatMonthlyAmount();
 
-      if (monthlyAmount !== null && !isNaN(monthlyAmount)) {
+      if (monthlyAmount !== undefined && monthlyAmount !== null && !isNaN(monthlyAmount)) {
         const gstRate = 0.18; // 18%
 
         const quarterlyAmount = calculateAmount(monthlyAmount * 3, 2); // Quarterly with 2% discount
@@ -191,9 +206,9 @@ const Features: React.FC<FeatureDetailsProps> = ({
 
   // Execute the calculation function
   calculateAmounts();
-  const calculateAmount = (baseAmount, discountPercent) => {
-    baseAmount = parseNumber(baseAmount);
-    discountPercent = parseNumber(discountPercent);
+  const calculateAmount = (baseAmount: number, discountPercent: number): number => {
+    baseAmount = parseNumber(String(baseAmount));
+    discountPercent = parseNumber(String(discountPercent));
 
     // Debug logs to check values
 
@@ -212,10 +227,11 @@ const Features: React.FC<FeatureDetailsProps> = ({
   };
 
   // Helper function to safely parse a value to a number
-  const parseNumber = (value) => {
+  const parseNumber = (value: string): number => {
     const number = parseFloat(value);
     return isNaN(number) ? 0 : number;
-  };
+  }
+  
 
   const totalAmount = () => {
     if (activeTab == "Monthly") {
@@ -314,9 +330,15 @@ const Features: React.FC<FeatureDetailsProps> = ({
                   "Payment Status",
                   JSON.stringify(payment_status)
                 );
-                const storedPaymentInfo = JSON.parse(
-                  localStorage.getItem("PaymentInfo")
-                );
+                const storedPaymentInfoString = localStorage.getItem("PaymentInfo");
+
+                if (storedPaymentInfoString) {
+                  const storedPaymentInfo = JSON.parse(storedPaymentInfoString);
+                  // Use storedPaymentInfo here
+                } else {
+                  // Handle the case where PaymentInfo is not found in localStorage
+                }
+                
 
                 localStorage.setItem("Link Id", JSON.stringify(link_id));
 
@@ -417,9 +439,9 @@ const Features: React.FC<FeatureDetailsProps> = ({
     };
 
     getAmounts();
-  }, []);
-  const formatNumber = (number) => {
-    const num = parseFloat(number);
+  }, );
+  const formatNumber = (input: string | number): string => {
+    const num = typeof input === 'string' ? parseFloat(input) : input;
     if (isNaN(num)) return "0.00"; // Return a default value if the input is not a number
 
     // Convert number to string and split into integer and decimal parts
@@ -439,16 +461,25 @@ const Features: React.FC<FeatureDetailsProps> = ({
     // Combine integer part and decimal part
     return `${integerPart}.${decimalPart}`;
   };
-  const [companyInfo, setCompanyInfo] = useState(null);
+  const [companyInfo, setCompanyInfo] = useState<CompanyInfo | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCompanyInfo = localStorage.getItem("CompanyInfo");
       if (storedCompanyInfo) {
-        setCompanyInfo(JSON.parse(storedCompanyInfo));
+        try {
+          const companyInfo: CompanyInfo = JSON.parse(storedCompanyInfo);
+          setCompanyInfo(companyInfo);
+        } catch (error) {
+          console.error("Failed to parse company info:", error);
+        }
       }
     }
   }, []);
+
+  
+
+
   // Assuming companyInfo is an object with taxableCount and nontaxablecount properties
 
   // Safely retrieve taxableCount and nontaxablecount, defaulting to 0 if they are null/undefined
@@ -464,13 +495,23 @@ const Features: React.FC<FeatureDetailsProps> = ({
   const [keyHolderName, setKeyHolderName] = useState("Valued Customer");
   useEffect(() => {
     // Retrieve companyInfo from localStorage
-    const companyInfo = JSON.parse(localStorage.getItem("CompanyInfo"));
-
-    // Safely access keyHolder name from companyInfo and update state
-    if (companyInfo?.keyholder_name) {
-      setKeyHolderName(companyInfo.keyholder_name);
+    const storedCompanyInfo = localStorage.getItem("CompanyInfo");
+    
+    // Safely parse and check for null
+    if (storedCompanyInfo) {
+      try {
+        const companyInfo: CompanyInfo = JSON.parse(storedCompanyInfo);
+  
+        // Safely access keyHolder name from companyInfo and update state
+        if (companyInfo.keyholder_name) {
+          setKeyHolderName(companyInfo.keyholder_name);
+        }
+      } catch (error) {
+        console.error("Failed to parse company info:", error);
+      }
     }
   }, []);
+  
 
   return (
     <div className="bg p-3">
@@ -487,14 +528,14 @@ const Features: React.FC<FeatureDetailsProps> = ({
               to payroll, compliance, and organizational efficiency.
             </p>
             <p>
-              Your organization's unique needs require tailored solutions. We'd
-              love to learn more about the specific pain points you're facing in
+              Your organizations unique needs require tailored solutions. We had
+              love to learn more about the specific pain points you were facing in
               these areas.
             </p>
             <p>
               Our Payroll Customer team is ready to discuss your requirements
               and explore how we can provide a customized solution to address
-              your enterprise's specific needs.
+              your enterprises specific needs.
             </p>
             <p>
               Would you be available for a brief call to discuss this further?
@@ -588,7 +629,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          Lorem ipsum dolor sit consectetur 
                           elit sed
                         </div>
                       </div>
@@ -634,7 +675,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                       </div>
                       <div className="ps-2">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
-                          Loan's & Advances
+                          Loans & Advances
                           <div className="form-check form-switch">
                             <input
                               className="form-check-input"
@@ -647,7 +688,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit sed
+                          
                         </div>
                       </div>
                     </div>
@@ -676,7 +717,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit sed
+                       sed
                         </div>
                       </div>
                     </div>
@@ -705,7 +746,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit sed
+                           sed
                         </div>
                         {isCompliancePlanActive && (
                           <div className="mt-2">
@@ -787,7 +828,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit sed
+                           sed
                         </div>
                       </div>
                     </div>
@@ -1114,7 +1155,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                   <div className="mt-4 d-flex justify-content-center">
                     <button
                       type="button"
-                      className="font-pop-18  primary-btn"
+                      className="font-pop-16  primary-btn"
                       onClick={handleSubmit}
                     >
                       Make Payment
