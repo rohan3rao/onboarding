@@ -27,7 +27,7 @@ interface FormData {
   address1: string;
   address2: string;
 }
-
+const panPattern = /^([A-Z]){3}[P]{1}([A-Z]){1}([0-9]){4}([A-Z]){1}?$/; // PAN pattern
 const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
   const [formData, setFormData] = useState<FormData>({
     organisationName: "",
@@ -44,6 +44,7 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
     address1: "",
     address2: "",
   });
+// const panPattern = "/^([A-Z]){3}[P]{1}([A-Z]){1}([0-9]){4}([A-Z]){1}?$/"
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [businessType, setBusinessType] = useState<any[]>([]);
   const [industry, setIndustry] = useState<any[]>([]);
@@ -89,12 +90,16 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
           ? ""
           : "Number of Non-Taxable Employees must be a number";
       case "panCardNo":
-        return value ? "" : "PAN is required";
+       // return value ? "" : "PAN is required";
+       return panPattern.test(value) ? "" : "Invalid PAN format";
       case "keyholderName":
         return value ? "" : "Keyholder Name is required";
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(value) ? "" : "A valid Email is required";
+        case "gstNo":
+        const gstPattern =  /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+        return gstPattern.test(value) ? "" : "A valid GST No is required";
       case "phoneNumber":
         const phoneRegex = /^\d{10}$/;
         return phoneRegex.test(value) ? "" : "Phone Number must be 10 digits";
@@ -102,7 +107,8 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
         return "";
     }
   };
-
+// const gstPattern =
+//   "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -360,9 +366,12 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
                   name="gstNo"
                   value={formData.gstNo}
                   onChange={handleChange}
-                  placeholder="Enter the 16-digit number"
+                  placeholder="Enter GST No"
                   autoComplete="off"
                 />
+                 {errors.gstNo && (
+                  <span className="error">{errors.gstNo}</span>
+                )}
               </div>
             </div>
           </div>
