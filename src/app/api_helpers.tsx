@@ -119,7 +119,42 @@ export async function sendLoginInfoMail(payload: any) {
   const data = await response.json();
   return data;
 }
+//////////////////////
+export async function savePAN(payload: any) {
+ 
+  const response = await fetch(`${apiUrl}/organization/save-pan`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
 
+  if (!response.ok) {
+    throw new Error(`Error fetching data: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+//////////////////////////
+export async function saveGST(payload: any) {
+  const response = await fetch(`${apiUrl}/organization/save-gst`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error fetching data: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+///////////////////
 export async function savePaymentInfo(payload: any) {
   const response = await fetch(`${apiUrl}/organization/save-saas`, {
     method: "POST",
@@ -194,12 +229,29 @@ export async function saveHeadCountInfo(payload: any) {
     },
     body: JSON.stringify(payload),
   });
+  
 
   // if (!response.ok) {
   //   throw new Error(`Error fetching data: ${response.statusText}`);
   // }
 
   const data = await response.text();
+  return data;
+}
+
+
+export async function saveValidateInfo(payload: any) {
+  const response = await fetch(`${apiUrl}/organization/validate-organization`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  // Parse the response body as JSON
+  const data = await response.json();
+
   return data;
 }
 

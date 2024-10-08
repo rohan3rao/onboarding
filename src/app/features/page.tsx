@@ -84,6 +84,9 @@ const Features: React.FC<FeatureDetailsProps> = ({
   const [isOT, setIsOT] = useState(false); // State to track if FBP is selected
   const [isCompliancePlanActive, setIsCompliancePlanActive] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isMonthlyAmt, setisMonthlyAmt] = useState(false);
+  const [headcountPricing, setHeadCountPricing] = useState("");
+
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
@@ -102,6 +105,29 @@ const Features: React.FC<FeatureDetailsProps> = ({
     setIsCompliancePlanActive((prev: boolean) => !prev);
   };
 
+  useEffect(() => {
+    console.log("IN USE EFFECT",localStorage.getItem("HeadcountInfo"))
+    const storedHeadCountInfo = localStorage.getItem("HeadcountInfo");
+    const HeadcountInfo = storedHeadCountInfo
+      ? JSON.parse(storedHeadCountInfo)
+      : null;
+
+    // Safely set the email state if available
+    console.log(HeadcountInfo)
+    if (HeadcountInfo) {
+      setHeadCountPricing(HeadcountInfo);
+      console.log("PRICINGIFNIFNI",headcountPricing)
+    }
+    const getAmounts = async () => {
+      const calculatedAmounts = await calculateAmounts();
+      if (calculatedAmounts) {
+        setAmounts(calculatedAmounts);
+      }
+    };
+
+    getAmounts();
+  }, [headcountPricing]);
+
   async function getMonthlyAmount() {
     try {
       // Retrieve companyInfo from localStorage
@@ -116,19 +142,20 @@ const Features: React.FC<FeatureDetailsProps> = ({
         };
 
         // Save the headcount info and get the response
-
-        const response = await saveHeadCountInfo(headCountPayload);
-        let responseObject;
-        if (typeof response == "string") {
-          // If response is a JSON string, parse it
-          responseObject = JSON.parse(response);
-        } else {
-          // If response is already an object
-          responseObject = response;
-        }
+        parseInt(headcountPricing)
+        // const response = await saveHeadCountInfo(headCountPayload);
+        // console.log(response)
+        // let responseObject;
+        // if (typeof response == "string") {
+        //   // If response is a JSON string, parse it
+        //   responseObject = JSON.parse(response);
+        // } else {
+        //   // If response is already an object
+        //   responseObject = response;
+        // }
 
         // Extract the pricing from the response
-        const monthlyAmount = responseObject?.pricing;
+        const monthlyAmount = headcountPricing;
 
         // Ensure the pricing value is present
         if (monthlyAmount !== undefined && monthlyAmount !== null) {
@@ -156,7 +183,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
   });
 
   async function formatMonthlyAmount() {
-    const monthlyAmount = await getMonthlyAmount();
+    const monthlyAmount = headcountPricing;
 
     if (monthlyAmount !== null) {
       return parseFloat(monthlyAmount);
@@ -174,7 +201,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
   // Calculate amounts with discounts
   async function calculateAmounts() {
     try {
-      const monthlyAmount = await formatMonthlyAmount();
+      const monthlyAmount = parseInt(headcountPricing);
 
       if (monthlyAmount !== undefined && monthlyAmount !== null && !isNaN(monthlyAmount)) {
         const gstRate = 0.18; // 18%
@@ -430,16 +457,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
     halfYearlyAmountWithGst: 0,
     annualAmountWithGst: 0,
   });
-  useEffect(() => {
-    const getAmounts = async () => {
-      const calculatedAmounts = await calculateAmounts();
-      if (calculatedAmounts) {
-        setAmounts(calculatedAmounts);
-      }
-    };
 
-    getAmounts();
-  }, );
   const formatNumber = (input: string | number): string => {
     const num = typeof input === 'string' ? parseFloat(input) : input;
     if (isNaN(num)) return "0.00"; // Return a default value if the input is not a number
@@ -528,7 +546,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
               to payroll, compliance, and organizational efficiency.
             </p>
             <p>
-              Your organizations unique needs require tailored solutions. We had
+              Your organizations unique needs require tailored solutions. We would
               love to learn more about the specific pain points you were facing in
               these areas.
             </p>
@@ -538,7 +556,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
               your enterprises specific needs.
             </p>
             <p>
-              Would you be available for a brief call to discuss this further?
+              Would you be available for a brief call to discuss and take this further?
             </p>
             <p>Best regards, </p>
             <p>Resolvepay Team</p>
@@ -657,7 +675,8 @@ const Features: React.FC<FeatureDetailsProps> = ({
                             />
                           </div>
                         </div>
-                        <div className="font-pop-12 fw-400 mt-1">
+                       
+                        <div className="font-pop-12 fw-400 mt-1" >
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit sed
                         </div>

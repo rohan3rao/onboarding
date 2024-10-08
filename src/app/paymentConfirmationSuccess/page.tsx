@@ -7,6 +7,8 @@ import {
   createOrganizationMaster,
   disableMenuInfo,
   getMailCredential,
+  saveGST,
+  savePAN,
   savePaymentInfo,
   sendLoginInfoMail,
 } from "../api_helpers";
@@ -55,6 +57,8 @@ export default function PaymentSuccess() {
     if (CompanyInfo?.email) {
       setCompanyEmail(CompanyInfo.email);
     }
+
+
   }, []);
 
   useEffect(() => {
@@ -87,11 +91,11 @@ export default function PaymentSuccess() {
       const getLinkIdInfo = (): any => {
         // Retrieve the item from localStorage
         const linkIdJson = localStorage.getItem("Link Id");
-      
+
         // Safely parse the JSON if it's not null
         return linkIdJson ? JSON.parse(linkIdJson) : "";
       };
-      
+
       const linkIdInfo = getLinkIdInfo();
       const sanitizedLinkId = linkIdInfo.replace(/^"|"$/g, "");
 
@@ -105,6 +109,9 @@ export default function PaymentSuccess() {
       try {
         const userInfo = {
           name: generalDetails?.keyholderName || "",
+          panCardNo: generalDetails?.panCardNo || "",
+          gstNo: generalDetails?.gstNo || "",
+
           code: undefined,
           industry_id: "1",
           file: undefined,
@@ -162,11 +169,37 @@ export default function PaymentSuccess() {
               linkId: sanitizedLinkId,
               taxableCount: generalDetails?.taxableEmployees || 0,
               nontaxablecount: generalDetails?.nonTaxableEmployees || 0,
+
+              //  panCardNo: generalDetails?.nonTaxableEmployees || 0,
+              // gstNo: generalDetails?.nonTaxableEmployees || 0,
             };
             localStorage.setItem("PaymentInfo", JSON.stringify(paymentInfo));
             console.log("Saving payment info with:", paymentInfo);
 
             await savePaymentInfo(paymentInfo);
+
+            ///
+            const panInfo = {
+              org_id: JSON.stringify(orgId),
+              pan_no: generalDetails?.panCardNo || 0,
+            };
+
+            localStorage.setItem("PanInfo", JSON.stringify(panInfo));
+            console.log("Saving payment info with:", panInfo);
+
+            await savePAN(panInfo);
+
+            ///
+            const gstInfo = {
+              organization_id: JSON.stringify(orgId),
+
+              gst_no: generalDetails?.gstNo || 0,
+            };
+            localStorage.setItem("GSTInfo", JSON.stringify(gstInfo));
+            console.log("Saving payment info with:", gstInfo);
+
+            await saveGST(gstInfo);
+            /////
 
             // Disable menu items based on formData (data from localStorage)
             console.log("Calling disableMenuInfo with org_id:", orgId);
@@ -226,7 +259,8 @@ export default function PaymentSuccess() {
     };
 
     fetchDetails();
-  }, );
+  }, []);
+  
   // Empty dependency array ensures this effect runs only once after the initial render
   // Empty dependency array ensures this runs only once when the component mounts
 

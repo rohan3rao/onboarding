@@ -6,7 +6,9 @@ import {
   getIndustryType,
   saveCompanyInfo,
   saveHeadCountInfo,
+  saveValidateInfo,
 } from "../api_helpers";
+import { Modal, Button } from "react-bootstrap";
 
 interface GeneralDetailsProps {
   onNext: () => void;
@@ -44,7 +46,7 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
     address1: "",
     address2: "",
   });
-// const panPattern = "/^([A-Z]){3}[P]{1}([A-Z]){1}([0-9]){4}([A-Z]){1}?$/"
+  // const panPattern = "/^([A-Z]){3}[P]{1}([A-Z]){1}([0-9]){4}([A-Z]){1}?$/"
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [businessType, setBusinessType] = useState<any[]>([]);
   const [industry, setIndustry] = useState<any[]>([]);
@@ -62,15 +64,14 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
         setBusinessType(businessInfo.organization_info);
         setIndustry(industryInfo.industry_info);
       } catch (error) {
-        console.error("Error during fetching details", error);
+       
       }
     };
     fetchBusinessAndIndustry();
   }, []);
 
   useEffect(() => {
-    console.log("Business Type", businessType);
-    console.log("Industry", industry);
+   
   }, [businessType, industry]);
 
   const validateField = (name: string, value: string): string => {
@@ -90,15 +91,21 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
           ? ""
           : "Number of Non-Taxable Employees must be a number";
       case "panCardNo":
-       // return value ? "" : "PAN is required";
-       return panPattern.test(value) ? "" : "Invalid PAN format";
+        // return value ? "" : "PAN is required";
+        return panPattern.test(value) ? "" : "Invalid PAN format";
       case "keyholderName":
         return value ? "" : "Keyholder Name is required";
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(value) ? "" : "A valid Email is required";
-        case "gstNo":
-        const gstPattern =  /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+      case "gstNo":
+        const gstPattern =
+          /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+        if (!value) {
+          // GST is not required, so no error if empty
+          return "";
+        }
+        // If there is a value, check the pattern
         return gstPattern.test(value) ? "" : "A valid GST No is required";
       case "phoneNumber":
         const phoneRegex = /^\d{10}$/;
@@ -107,8 +114,7 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
         return "";
     }
   };
-// const gstPattern =
-//   "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -148,8 +154,7 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
 
       // Store the general details in local storage
       localStorage.setItem("GeneralDetails", JSON.stringify(formData));
-      console.log("General details", formData);
-
+   
       const companyInfo = {
         organizationName: formData.organisationName,
         taxableCount: formData.taxableEmployees, // Ensure it's an integer if needed
@@ -163,6 +168,14 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
         is_active: false,
       };
 
+      const companyInfoPayload = {
+        organization_name: formData.organisationName,
+        pan_no: formData.panCardNo,
+        gst_no: formData.gstNo,
+        email: formData.email,
+        phone: formData.phoneNumber,
+      };
+
       // Calculate the total headcount once
       const totalHeadCount =
         parseInt(companyInfo.taxableCount, 10) +
@@ -173,31 +186,69 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
       };
 
       try {
-        // Call saveHeadCountInfo and saveCompanyInfo sequentially
-        await saveHeadCountInfo(HeadCountPayload);
-        await saveCompanyInfo(companyInfo);
+        // Call saveValidateInfo,saveHeadCountInfo and saveCompanyInfo sequentially
+        const response1 = await saveValidateInfo(companyInfoPayload);
+        if (response1.success === false) {
+          setErrorMessage(response1.message); // Set the error message from the response
+          setErrorModalVisible(true);
 
-        // Store the company info in local storage after successful API calls
-        localStorage.setItem("CompanyInfo", JSON.stringify(companyInfo));
+          response1.message;
+        } else {
+          const response = await saveHeadCountInfo(HeadCountPayload);
 
-        // Proceed to the next step
-        onNext();
+          // Check if the response is a string and needs parsing
+          let abc;
+          if (typeof response === "string") {
+            abc = JSON.parse(response); // Parse the JSON string into an object
+          } else {
+            abc = response; // If it's already an object, no need to parse
+          }
+
+          // Now you can safely access the 'pricing' property
+          const pricing = abc.pricing;
+          await saveCompanyInfo(companyInfo);
+
+          // Store the company info in local storage after successful API calls
+          localStorage.setItem("CompanyInfo", JSON.stringify(companyInfo));
+          localStorage.setItem("HeadcountInfo", JSON.stringify(pricing));
+
+          // Proceed to the next step
+          onNext();
+        }
       } catch (error) {
-        console.error("Error saving company or headcount information:", error);
+      
       } finally {
         setIsSubmitting(false); // Reset submitting state
       }
     }
   };
 
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleCloseModal = () => {
+    setErrorModalVisible(false);
+  };
+
   return (
     <div className="custom-card container px-4">
       <div>
+        
         <form>
+       
           <div className="font-pop-16 fw-600 mb-3 dark">
             Business Information
           </div>
-
+          <Modal show={errorModalVisible} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title style={{ color: "red", fontWeight: "bold" }}>
+              Error!
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{errorMessage}</p>
+          </Modal.Body>
+        </Modal>
           <div className="row">
             <div className="col-4">
               <div className="form-group mb-3">
@@ -369,9 +420,7 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
                   placeholder="Enter GST No"
                   autoComplete="off"
                 />
-                 {errors.gstNo && (
-                  <span className="error">{errors.gstNo}</span>
-                )}
+                {errors.gstNo && <span className="error">{errors.gstNo}</span>}
               </div>
             </div>
           </div>
