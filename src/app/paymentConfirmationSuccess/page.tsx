@@ -245,11 +245,12 @@ export default function PaymentSuccess() {
               OrgId: orgId,
             };
 
-            console.log("Disable Menu Payload:", disableMenuPayload);
+           // console.log("Disable Menu Payload:", disableMenuPayload);
             await disableMenuInfo(disableMenuPayload); // Pass the payload to disableMenuInfo
-            console.log("disableMenuInfo API call successful");
+            //console.log("disableMenuInfo API call successful");
           }
         }
+      
       } catch (error) {
         console.error(
           "Error during organization creation or subsequent calls",
@@ -259,6 +260,7 @@ export default function PaymentSuccess() {
     };
 
     fetchDetails();
+    localStorage.clear()
   }, []);
   
   // Empty dependency array ensures this effect runs only once after the initial render
