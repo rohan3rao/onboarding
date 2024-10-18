@@ -55,7 +55,7 @@ interface FeatureDetailsProps {
 interface CompanyInfo {
   taxableCount: string;
   nontaxablecount: string;
-  keyholder_name?: string; 
+  keyholder_name?: string;
   // Add other properties as needed
 }
 
@@ -99,7 +99,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
       setter(event.target.checked);
     }
   };
-  
+ 
   const handleSwitchChangeComp = (setter: React.Dispatch<React.SetStateAction<boolean>>) => () => {
     setter((prevState: boolean) => !prevState);
     setIsCompliancePlanActive((prev: boolean) => !prev);
@@ -258,7 +258,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
     const number = parseFloat(value);
     return isNaN(number) ? 0 : number;
   }
-  
+ 
 
   const totalAmount = () => {
     if (activeTab == "Monthly") {
@@ -365,7 +365,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                 } else {
                   // Handle the case where PaymentInfo is not found in localStorage
                 }
-                
+               
 
                 localStorage.setItem("Link Id", JSON.stringify(link_id));
 
@@ -495,7 +495,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
     }
   }, []);
 
-  
+ 
 
 
   // Assuming companyInfo is an object with taxableCount and nontaxablecount properties
@@ -514,12 +514,12 @@ const Features: React.FC<FeatureDetailsProps> = ({
   useEffect(() => {
     // Retrieve companyInfo from localStorage
     const storedCompanyInfo = localStorage.getItem("CompanyInfo");
-    
+   
     // Safely parse and check for null
     if (storedCompanyInfo) {
       try {
         const companyInfo: CompanyInfo = JSON.parse(storedCompanyInfo);
-  
+ 
         // Safely access keyHolder name from companyInfo and update state
         if (companyInfo.keyholder_name) {
           setKeyHolderName(companyInfo.keyholder_name);
@@ -529,10 +529,10 @@ const Features: React.FC<FeatureDetailsProps> = ({
       }
     }
   }, []);
-  
+ 
 
   return (
-    <div className="bg p-3">
+    <div className="p-3">
       {loading && (
         <LoadingSpinner text="Processing your payment. Do not close or refresh your page..." />
       )}
@@ -563,10 +563,14 @@ const Features: React.FC<FeatureDetailsProps> = ({
           </div>
         ) : (
           <div className="row">
-            <div className="col-sm-12 col-md-12 col-lg-7 col-xl-7">
+          <p>These features are available to you at no additional cost and have
+             been tailored to meet your organization's needs. Please select the
+              ones that are applicable to your business</p>
+
+            <div className="col-sm-12 col-md-12 col-lg-12 col-xl-7">
               <div className="card-container">
                 <div className="row">
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -575,7 +579,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           Flexible Benefit plan
                           <div className="form-check form-switch">
@@ -595,7 +599,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -604,7 +608,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           WorkFlows
                           <div className="form-check form-switch">
@@ -624,7 +628,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -633,7 +637,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           Perquisites
                           <div className="form-check form-switch">
@@ -647,13 +651,13 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit consectetur 
+                          Lorem ipsum dolor sit consectetur
                           elit sed
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -662,7 +666,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           Overtime
                           <div className="form-check form-switch">
@@ -683,7 +687,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -692,7 +696,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           Loans & Advances
                           <div className="form-check form-switch">
@@ -707,12 +711,12 @@ const Features: React.FC<FeatureDetailsProps> = ({
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          
+                         
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -721,7 +725,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           Sub Contractor Payroll
                           <div className="form-check form-switch">
@@ -741,7 +745,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -750,7 +754,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           Compliance plan
                           <div className="form-check form-switch">
@@ -823,7 +827,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                     </div>
                   </div>
 
-                  <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div className="fea-card">
                       <div>
                         <Image
@@ -832,7 +836,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className="card-image"
                         />
                       </div>
-                      <div className="ps-2">
+                      <div className="ps-2 w-100">
                         <div className="d-flex justify-content-between font-pop-14 dark fw-600">
                           Templates & Policies
                           <div className="form-check form-switch">
@@ -857,28 +861,24 @@ const Features: React.FC<FeatureDetailsProps> = ({
                 {/* Repeat the same corrections for the other cards */}
               </div>
             </div>
-            <div className="out-right col-sm-12 col-md-12 col-lg-5 col-xl-5">
+            <div className="out-right col-sm-12 col-md-12 col-lg-12 col-xl-5 ps-0">
               <div className="right-section">
-                <div className="row d-flex justify-content-between font-pop-18 fw-600 dark mb-2 mt-2">
-                  <div className="col">Pricing Summary</div>
-                  <div className="col">
+                <div className="d-flex justify-content-between font-pop-18 fw-600 dark mb-2 mt-2">
+                  <div className="">Pricing Summary</div>
+                  <div className="">
                     <span
-                      className="font-pop-12 dark fw-500"
-                      style={{ marginLeft: "160px" }}
-                    >
+                      className="font-pop-12 dark fw-500">
                       ( Values in ₹ )
                     </span>
                   </div>
                 </div>
 
-                <div className="price">
-                  <div className="row d-flex justify-content-between font-pop-14 fw-500 blue mb-2">
-                    <div className="col">Basic Subscription</div>
-                    <div className="col">
+                <div className="">
+                  <div className=" d-flex justify-content-between font-pop-14 fw-500 blue my-2">
+                    <div className="">Basic Subscription</div>
+                    <div className="">
                       <span
-                        className="discount-pill font-pop-12 dark fw-500"
-                        style={{ marginLeft: "183px" }}
-                      >
+                        className="discount-pill font-pop-12 dark fw-500">
                         Popular
                       </span>
                     </div>
@@ -922,7 +922,6 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           className={`nav-link ${
                             activeTab === "Annual" ? "active" : ""
                           }`}
-                          style={{ marginRight: "35px" }}
                           onClick={() => handleTabClick("Annual")}
                         >
                           Annual
@@ -932,17 +931,17 @@ const Features: React.FC<FeatureDetailsProps> = ({
 
                     <div className="row">
                       <div className="col"></div>
-                      <div className="col">
+                      <div className="col d-flex justify-content-center">
                         <span className="discount-pill font-pop-12 dark fw-500">
                           2%-Off
                         </span>
                       </div>
-                      <div className="col">
+                      <div className="col d-flex justify-content-center">
                         <span className="discount-pill discount-pills font-pop-12 dark fw-500">
                           5%-Off
                         </span>
                       </div>
-                      <div className="col">
+                      <div className="col d-flex justify-content-center">
                         <span className="discount-pill discount-pills-one font-pop-12 dark fw-500">
                           8%-Off
                         </span>
@@ -1171,17 +1170,26 @@ const Features: React.FC<FeatureDetailsProps> = ({
                     </div>
                   </div>
 
-                  <div className="mt-4 d-flex justify-content-center">
+                  {/* <div className="mt-4 px-4">
                     <button
                       type="button"
-                      className="font-pop-16  primary-btn"
+                      className="font-pop-16  btn-primary w-100"
+                      onClick={handleSubmit}
+                    >
+                      Make Payment
+                    </button>
+                  </div> */}
+                </div>
+              </div>
+              <div className="mt-4 px-4 pb-3">
+                    <button
+                      type="button"
+                      className="font-pop-16  btn-primary w-100"
                       onClick={handleSubmit}
                     >
                       Make Payment
                     </button>
                   </div>
-                </div>
-              </div>
             </div>
           </div>
         )}

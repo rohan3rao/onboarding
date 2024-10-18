@@ -161,23 +161,7 @@ export default function PaymentSuccess() {
 
             await sendLoginInfoMail(mailInfo);
 
-            const paymentInfo = {
-              OrgId: JSON.stringify(orgId),
-              BillingCycle: data?.plan || "",
-              Amount: data?.totalAmount ? data.totalAmount.toString() : "0",
-              Response: paymentStatus,
-              linkId: sanitizedLinkId,
-              taxableCount: generalDetails?.taxableEmployees || 0,
-              nontaxablecount: generalDetails?.nonTaxableEmployees || 0,
-
-              //  panCardNo: generalDetails?.nonTaxableEmployees || 0,
-              // gstNo: generalDetails?.nonTaxableEmployees || 0,
-            };
-            localStorage.setItem("PaymentInfo", JSON.stringify(paymentInfo));
-            console.log("Saving payment info with:", paymentInfo);
-
-            await savePaymentInfo(paymentInfo);
-
+          
             ///
             const panInfo = {
               org_id: JSON.stringify(orgId),
@@ -200,6 +184,22 @@ export default function PaymentSuccess() {
 
             await saveGST(gstInfo);
             /////
+            const paymentInfo = {
+              OrgId: JSON.stringify(orgId),
+              BillingCycle: data?.plan || "",
+              Amount: data?.totalAmount ? data.totalAmount.toString() : "0",
+              Response: paymentStatus,
+              linkId: sanitizedLinkId,
+              taxableCount: generalDetails?.taxableEmployees || 0,
+              nontaxablecount: generalDetails?.nonTaxableEmployees || 0,
+
+              //  panCardNo: generalDetails?.nonTaxableEmployees || 0,
+              // gstNo: generalDetails?.nonTaxableEmployees || 0,
+            };
+            localStorage.setItem("PaymentInfo", JSON.stringify(paymentInfo));
+            console.log("Saving payment info with:", paymentInfo);
+
+            await savePaymentInfo(paymentInfo);
 
             // Disable menu items based on formData (data from localStorage)
             console.log("Calling disableMenuInfo with org_id:", orgId);

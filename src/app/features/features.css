@@ -62,9 +62,6 @@
   border: 1px solid #e79251;
   color: #e79251;
   background: #fffbf8;
-  margin-left: 30px;
-  /* margin-right: 16px; */
-  /* margin-bottom: 12px; */
 }
 
 .optional-pil {
@@ -103,6 +100,7 @@
   padding: 8px 16px;
   color: #ffffff;
   font-size: 14px;
+  border: 0;
 }
 
 /* Dropdown */
@@ -119,16 +117,17 @@
 /* Tabs */
 
 .nav-pills {
-  padding: 12px;
+  /* padding: 12px;
   padding-left: 12px !important;
   border-radius: 40px;
   background: #f5f9ff;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; */
 }
 
 .nav-pills .nav-link {
   border-radius: 30px;
+  /* padding: 8px; */
 }
 
 .nav-link {
@@ -178,7 +177,7 @@
 .bg {
   /* background-image: url("./img/bg.svg"); */
   background-color: #2e75c7;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .card-image {
@@ -190,7 +189,7 @@
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   /* height: 537 px; */
-  margin-top: 20px !important;
+  /* margin-top: 20px !important; */
 }
 
 .list {
@@ -200,11 +199,11 @@
 /************************/
 
 .main-card-section {
-  padding: 25px;
+  padding: 16px 25px;
   border-radius: 12px;
   background: #ffffff;
-  height: calc(80vh - 90px);
-  overflow-y: auto;
+  /* height: calc(100vh - 196px);
+  overflow-y: auto; */
 }
 
 .fea-card {
@@ -220,19 +219,20 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 25px;
   overflow-y: auto;
-  height: 460px;
+  /* height: 460px; */
   padding-right: 16px;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 245px);
 }
 
 .right-section {
-  overflow-y: hidden;
+  overflow-y: auto;
   overflow-x: hidden;
-  height: calc(90vh - 120px) auto;
+  height: calc(100vh - 308px);
   margin-left: 10px;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-grow: 1; */
+  padding-right: 8px;
 }
 
 ::-webkit-scrollbar {
@@ -274,4 +274,19 @@
   background: #ffffff;
   padding: 20px;
   margin-top: 20px;
+}
+
+@media (max-width: 1199px) {
+ .card-container, .right-section{
+  height: auto;
+ }
+ .out-right {
+  margin-top: 20px !important;
+ }
+}
+
+@media (max-width: 991px) {
+  .out-right {
+    margin-top: 20px !important;
+   }
 }
