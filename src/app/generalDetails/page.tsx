@@ -29,7 +29,7 @@ interface FormData {
   address1: string;
   address2: string;
 }
-const panPattern = /^([A-Z]){3}[P]{1}([A-Z]){1}([0-9]){4}([A-Z]){1}?$/; // PAN pattern
+const panPattern = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/; // PAN pattern
 const GeneralDetails: React.FC<GeneralDetailsProps> = ({ onNext }) => {
   const [formData, setFormData] = useState<FormData>({
     organisationName: "",
