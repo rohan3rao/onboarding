@@ -564,7 +564,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
         ) : (
           <div className="row">
           <p>These features are available to you at no additional cost and have
-             been tailored to meet your organization's needs. Please select the
+             been tailored to meet your organizations needs. Please select the
               ones that are applicable to your business</p>
 
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-7">
