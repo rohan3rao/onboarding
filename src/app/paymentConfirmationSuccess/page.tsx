@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
   addAdminUser,
+  coreMasterSaas,
   createOrganizationMaster,
   disableMenuInfo,
   getMailCredential,
@@ -142,6 +143,7 @@ export default function PaymentSuccess() {
           };
 
           const user = await addAdminUser(adminInfo);
+          await coreMasterSaas(adminInfo);
 
           if (user || !user) {
             const getMailInfo = await getMailCredential();

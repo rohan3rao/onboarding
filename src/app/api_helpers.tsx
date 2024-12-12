@@ -84,6 +84,23 @@ export async function addAdminUser(payload: any) {
   return data;
 }
 
+export async function coreMasterSaas(payload: any) {
+  const response = await fetch(`${apiUrl}/organization/core-master-sass`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error posting data: ${response.statusText}`);
+  }
+
+  const data = await response.text();
+  return data;
+}
+
 export async function getMailCredential() {
   const response = await fetch(
     `${apiUrl}/organization/mail-credential-sass/4/0`,

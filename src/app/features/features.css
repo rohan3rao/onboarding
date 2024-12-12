@@ -96,7 +96,7 @@
 
 .btn-primary {
   border-radius: 4px;
-  background: #08705c;
+  background: #2b28b9;;
   padding: 8px 16px;
   color: #ffffff;
   font-size: 14px;
@@ -131,14 +131,15 @@
 }
 
 .nav-link {
-  padding: 8px 40px;
+  padding: 8px 16px !important;
   color: #9096a2;
+  cursor: pointer;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #ffffff;
-  background: #08705c !important;
+  background: #2b28b9 !important;
   border-radius: 30px;
 }
 
@@ -176,7 +177,8 @@
 
 .bg {
   /* background-image: url("./img/bg.svg"); */
-  background-color: #2e75c7;
+  background-color: #ebe7e7;
+  
   /* height: 100vh; */
 }
 
@@ -221,13 +223,13 @@
   overflow-y: auto;
   /* height: 460px; */
   padding-right: 16px;
-  height: calc(100vh - 245px);
+  height: calc(100vh - 294px);
 }
 
 .right-section {
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100vh - 308px);
+  height: calc(100vh - 369px);
   margin-left: 10px;
   /* display: flex;
   flex-direction: column;
@@ -277,16 +279,17 @@
 }
 
 @media (max-width: 1199px) {
- .card-container, .right-section{
-  height: auto;
- }
- .out-right {
-  margin-top: 20px !important;
- }
+  .card-container,
+  .right-section {
+    height: auto;
+  }
+  .out-right {
+    margin-top: 20px !important;
+  }
 }
 
 @media (max-width: 991px) {
   .out-right {
     margin-top: 20px !important;
-   }
+  }
 }

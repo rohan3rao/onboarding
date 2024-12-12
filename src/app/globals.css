@@ -217,7 +217,7 @@ div {
 }
 
 .step-name {
-  color: #ffffff;
+  color: #000000;
   font-size: 14px;
 }
 
@@ -438,14 +438,14 @@ label {
 }
 
 .nav-link {
-  padding: 8px 40px;
+  /* padding: 8px 40px; */
   color: #9096a2;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #ffffff;
-  background: #08705c;
+  background: #2b28b9;
 }
 
 .square-tab-container {
@@ -481,7 +481,8 @@ label {
 }
 
 .bg {
-  background-image: url("/form-bg.svg");
+ background-image: url("/form-bgb.jpg"); 
+
   height: 100vh;
 }
 
