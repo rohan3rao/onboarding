@@ -109,7 +109,7 @@ export default function PaymentSuccess() {
 
       try {
         const userInfo = {
-          name: generalDetails?.keyholderName || "",
+          name: generalDetails?.organisationName || "",
           panCardNo: generalDetails?.panCardNo || "",
           gstNo: generalDetails?.gstNo || "",
 
@@ -127,7 +127,6 @@ export default function PaymentSuccess() {
         if (response) {
           const orgId = response.org_id;
           setOrgId(orgId);
-
           const adminInfo = {
             org_id: JSON.stringify(orgId),
             first_name: generalDetails?.keyholderName || "",
@@ -141,6 +140,7 @@ export default function PaymentSuccess() {
               {},
             ],
           };
+          
 
           const user = await addAdminUser(adminInfo);
           await coreMasterSaas(adminInfo);
