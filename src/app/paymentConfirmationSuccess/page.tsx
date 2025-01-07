@@ -179,7 +179,7 @@ export default function PaymentSuccess() {
             const gstInfo = {
               organization_id: JSON.stringify(orgId),
 
-              gst_no: generalDetails?.gstNo || 0,
+              gst_no: generalDetails?.gstNo || "0",
             };
             localStorage.setItem("GSTInfo", JSON.stringify(gstInfo));
             console.log("Saving payment info with:", gstInfo);
