@@ -207,7 +207,7 @@ export default function PaymentSuccess() {
             console.log("Calling disableMenuInfo with org_id:", orgId);
             const DisabledMenuIds = [];
 
-            if (data.is_fbp) {
+            if (!data.is_fbp) {
               DisabledMenuIds.push(
                 58,
                 59,
@@ -224,19 +224,19 @@ export default function PaymentSuccess() {
                 558
               );
             }
-            if (data.isLoans) {
+            if (!data.isLoans) {
               DisabledMenuIds.push(78, 167, 168, 169, 170, 565, 566);
             }
-            if (data.isPQ) {
+            if (!data.isPQ) {
               DisabledMenuIds.push(25, 65, 108, 525, 526);
             }
-            if (data.isWorkFlow) {
+            if (!data.isWorkFlow) {
               DisabledMenuIds.push(17, 50);
             }
-            if (data.isOT) {
+            if (!data.isOT) {
               DisabledMenuIds.push(77);
             }
-            if (data.isTemp) {
+            if (!data.isTemp) {
               DisabledMenuIds.push(524);
             }
 
