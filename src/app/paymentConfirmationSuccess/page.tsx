@@ -147,7 +147,20 @@ export default function PaymentSuccess() {
 
           if (user || !user) {
             
+            const getMailInfo = await getMailCredential();
 
+            const mail_users = getMailInfo.mail_users;
+            const userIds = mail_users
+              .filter((user: any) => user.org_id === orgId)
+              .map((user: any) => user.user_id);
+
+            setUserIds(userIds);
+
+            const mailInfo = {
+              process_id: "62",
+              menu_id: "192",
+              user_ids: userIds,
+            };
         
 
           
@@ -190,20 +203,7 @@ export default function PaymentSuccess() {
 
             await savePaymentInfo(paymentInfo);
             
-            const getMailInfo = await getMailCredential();
-
-            const mail_users = getMailInfo.mail_users;
-            const userIds = mail_users
-              .filter((user: any) => user.org_id === orgId)
-              .map((user: any) => user.user_id);
-
-            setUserIds(userIds);
-
-            const mailInfo = {
-              process_id: "62",
-              menu_id: "192",
-              user_ids: userIds,
-            };
+            
 
             await sendLoginInfoMail(mailInfo);
             // Disable menu items based on formData (data from localStorage)
