@@ -146,22 +146,9 @@ export default function PaymentSuccess() {
           await coreMasterSaas(adminInfo);
 
           if (user || !user) {
-            const getMailInfo = await getMailCredential();
+            
 
-            const mail_users = getMailInfo.mail_users;
-            const userIds = mail_users
-              .filter((user: any) => user.org_id === orgId)
-              .map((user: any) => user.user_id);
-
-            setUserIds(userIds);
-
-            const mailInfo = {
-              process_id: "62",
-              menu_id: "192",
-              user_ids: userIds,
-            };
-
-            await sendLoginInfoMail(mailInfo);
+        
 
           
             ///
@@ -202,7 +189,23 @@ export default function PaymentSuccess() {
             console.log("Saving payment info with:", paymentInfo);
 
             await savePaymentInfo(paymentInfo);
+            
+            const getMailInfo = await getMailCredential();
 
+            const mail_users = getMailInfo.mail_users;
+            const userIds = mail_users
+              .filter((user: any) => user.org_id === orgId)
+              .map((user: any) => user.user_id);
+
+            setUserIds(userIds);
+
+            const mailInfo = {
+              process_id: "62",
+              menu_id: "192",
+              user_ids: userIds,
+            };
+
+            await sendLoginInfoMail(mailInfo);
             // Disable menu items based on formData (data from localStorage)
             console.log("Calling disableMenuInfo with org_id:", orgId);
             const DisabledMenuIds = [];
@@ -316,7 +319,7 @@ export default function PaymentSuccess() {
             <div
               className="btn-primary me-3 cursor"
               onClick={() => {
-                const externalUrl = "https://ezii.co.in/log-in/";
+                const externalUrl = "https://app.ezii.co.in/ezii-login/";
                 window.open(externalUrl, "_blank");
               }}
             >

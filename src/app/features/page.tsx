@@ -508,7 +508,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
   const total = taxableCount + nontaxablecount;
 
   // Check if the total is greater than or equal to 500
-  const shouldShowPricingSummary = total >= 500;
+  const shouldShowPricingSummary = total >= 501;
 
   const [keyHolderName, setKeyHolderName] = useState("Valued Customer");
   useEffect(() => {
@@ -593,8 +593,8 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit sed
+                        Customize and manage tax-saving benefits for employees with options like allowances and reimbursements.
+                        sed
                         </div>
                       </div>
                     </div>
@@ -622,8 +622,8 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit sed
+                        Automate payroll processes and approval hierarchies for efficient task management and reduced manual intervention.
+                      
                         </div>
                       </div>
                     </div>
@@ -651,8 +651,8 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit consectetur
-                          elit sed
+                        Configure and manage non-cash benefits like housing or company vehicles for employee tax calculations.
+                     
                         </div>
                       </div>
                     </div>
@@ -681,8 +681,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                         </div>
                        
                         <div className="font-pop-12 fw-400 mt-1" >
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit sed
+                        Track and calculate extra work hours to ensure accurate pay for eligible employees.
                         </div>
                       </div>
                     </div>
@@ -710,7 +709,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                        Manage employee loans and advances with automatic payroll deductions and tracking.
                          
                         </div>
                       </div>
@@ -739,8 +738,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                       sed
+                        Efficiently handle payroll processing for subcontractors, including payments and tax calculations.
                         </div>
                       </div>
                     </div>
@@ -768,8 +766,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                           sed
+                        Ensure payroll adherence to legal regulations with built-in compliance management tools.
                         </div>
                         {isCompliancePlanActive && (
                           <div className="mt-2">
@@ -850,8 +847,7 @@ const Features: React.FC<FeatureDetailsProps> = ({
                           </div>
                         </div>
                         <div className="font-pop-12 fw-400 mt-1">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                           sed
+                        Standardize and automate payroll templates and policies for compliance and consistency.
                         </div>
                       </div>
                     </div>
@@ -877,112 +873,89 @@ const Features: React.FC<FeatureDetailsProps> = ({
                   <div className=" d-flex justify-content-between font-pop-14 fw-500 blue my-2">
                     <div className="">Basic Subscription</div>
                     <div className="">
-                      <span
-                        className="discount-pill font-pop-12 dark fw-500">
-                        Popular
-                      </span>
+                      
                     </div>
                   </div>
 
                   <div>
-                    <ul className="nav nav-pills nav-pill-pills">
-                      <li className="nav-item">
-                        <a
-                          className={`nav-link ${
-                            activeTab === "Monthly" ? "active" : ""
-                          }`}
-                          aria-current="page"
-                          onClick={() => handleTabClick("Monthly")}
-                        >
-                          Monthly
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a
-                          className={`nav-link ${
-                            activeTab === "Quarterly" ? "active" : ""
-                          }`}
-                          onClick={() => handleTabClick("Quarterly")}
-                        >
-                          Quarterly
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a
-                          className={`nav-link ${
-                            activeTab === "Half-Yearly" ? "active" : ""
-                          }`}
-                          onClick={() => handleTabClick("Half-Yearly")}
-                        >
-                          Half-Yearly
-                        </a>
-                      </li>
-                      <li className="nav-item nav-annual">
-                        <a
-                          className={`nav-link ${
-                            activeTab === "Annual" ? "active" : ""
-                          }`}
-                          onClick={() => handleTabClick("Annual")}
-                        >
-                          Annual
-                        </a>
-                      </li>
-                    </ul>
+  <ul className="nav nav-pills nav-pill-pills d-flex w-100 text-center">
+    <li className="nav-item flex-fill">
+      <a
+        className={`nav-link ${activeTab === "Monthly" ? "active" : ""}`}
+        onClick={() => handleTabClick("Monthly")}
+      >
+        Monthly
+      </a>
+    </li>
+    <li className="nav-item flex-fill">
+      <a
+        className={`nav-link ${activeTab === "Quarterly" ? "active" : ""}`}
+        onClick={() => handleTabClick("Quarterly")}
+      >
+        Quarterly
+      </a>
+    </li>
+    <li className="nav-item flex-fill">
+      <a
+        className={`nav-link ${activeTab === "Half-Yearly" ? "active" : ""}`}
+        onClick={() => handleTabClick("Half-Yearly")}
+      >
+        Half-Yearly
+      </a>
+    </li>
+    <li className="nav-item flex-fill">
+      <a
+        className={`nav-link ${activeTab === "Annual" ? "active" : ""}`}
+        onClick={() => handleTabClick("Annual")}
+      >
+        Annual
+      </a>
+    </li>
+  </ul>
 
-                    <div className="row">
-                      <div className="col"></div>
-                      <div className="col d-flex justify-content-center">
-                        <span className="discount-pill font-pop-12 dark fw-500">
-                          2%-Off
-                        </span>
-                      </div>
-                      <div className="col d-flex justify-content-center">
-                        <span className="discount-pill discount-pills font-pop-12 dark fw-500">
-                          5%-Off
-                        </span>
-                      </div>
-                      <div className="col d-flex justify-content-center">
-                        <span className="discount-pill discount-pills-one font-pop-12 dark fw-500">
-                          8%-Off
-                        </span>
-                      </div>
-                    </div>
+  <div className="row">
+    <div className="col d-flex justify-content-center">
+      <span className="discount-pill font-pop-12 dark fw-500">Popular</span>
+    </div>
+    <div className="col d-flex justify-content-center">
+      <span className="discount-pill font-pop-12 dark fw-500">2%-Off</span>
+    </div>
+    <div className="col d-flex justify-content-center">
+      <span className="discount-pill discount-pills font-pop-12 dark fw-500">5%-Off</span>
+    </div>
+    <div className="col d-flex justify-content-center">
+      <span className="discount-pill discount-pills-one font-pop-12 dark fw-500">8%-Off</span>
+    </div>
+  </div>
 
-                    <div className="row mt-3 amount-period">
-                      <div
-                        className="col d-flex justify-content-center"
-                        style={{ fontWeight: getFontWeight("Monthly") }}
-                      >
-                        {formatNumber(
-                          Math.round(amounts.monthlyAmount).toFixed(2)
-                        )}
-                      </div>
-                      <div
-                        className="col d-flex justify-content-center q-amount"
-                        style={{ fontWeight: getFontWeight("Quarterly") }}
-                      >
-                        {formatNumber(
-                          Math.round(amounts.quarterlyAmount).toFixed(2)
-                        )}
-                      </div>
-                      <div
-                        className="col d-flex justify-content-center hy-amount"
-                        style={{ fontWeight: getFontWeight("Half-Yearly") }}
-                      >
-                        {formatNumber(
-                          Math.round(amounts.halfYearlyAmount).toFixed(2)
-                        )}
-                      </div>
-                      <div
-                        className="col d-flex justify-content-center ay-amount"
-                        style={{ fontWeight: getFontWeight("Annual") }}
-                      >
-                        {formatNumber(
-                          Math.round(amounts.annualAmount).toFixed(2)
-                        )}
-                      </div>
-                    </div>
-                  </div>
+  <div className="row mt-3 amount-period">
+    <div
+      className="col d-flex justify-content-center"
+      style={{ fontWeight: getFontWeight("Monthly") }}
+    >
+      {formatNumber(Math.round(amounts.monthlyAmount).toFixed(2))}
+    </div>
+    <div
+      className="col d-flex justify-content-center q-amount"
+      style={{ fontWeight: getFontWeight("Quarterly") }}
+    >
+      {formatNumber(Math.round(amounts.quarterlyAmount).toFixed(2))}
+    </div>
+    <div
+      className="col d-flex justify-content-center hy-amount"
+      style={{ fontWeight: getFontWeight("Half-Yearly") }}
+    >
+      {formatNumber(Math.round(amounts.halfYearlyAmount).toFixed(2))}
+    </div>
+    <div
+      className="col d-flex justify-content-center ay-amount"
+      style={{ fontWeight: getFontWeight("Annual") }}
+    >
+      {formatNumber(Math.round(amounts.annualAmount).toFixed(2))}
+    </div>
+  </div>
+</div>
+
 
                   <div>
                     <div className="font-pop-14 fw-500 blue mt-4 mb-2">
