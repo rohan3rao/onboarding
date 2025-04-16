@@ -319,7 +319,7 @@ export default function PaymentSuccess() {
             <div
               className="btn-primary me-3 cursor"
               onClick={() => {
-                const externalUrl = "https://app.ezii.co.in/ezii-login/";
+                const externalUrl = "https://app.ezii.co.in/log-in/";
                 window.open(externalUrl, "_blank");
               }}
             >
